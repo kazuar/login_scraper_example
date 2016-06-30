@@ -29,10 +29,9 @@ def main():
     # Scrape url
     result = session_requests.get(URL, headers = dict(referer = URL))
     tree = html.fromstring(result.content)
-    bucket_elems = tree.findall(".//span[@class='repo-name']")
-    bucket_names = [bucket_elem.text_content().replace("\n", "").strip() for bucket_elem in bucket_elems]
+    bucket_names = tree.xpath("//div[@class='repo-list--repo']/a/text()")
 
-    print bucket_names
+    print(bucket_names)
 
 if __name__ == '__main__':
     main()
